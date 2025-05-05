@@ -3,7 +3,8 @@ import { createRoot } from "react-dom/client"
 import { Provider } from "react-redux"
 import { App } from "./App"
 import { store } from "./app/store"
-import "./index.css"
+import './index.css'
+import { HeroUIProvider } from "@heroui/react"
 
 const container = document.getElementById("root")
 
@@ -13,7 +14,9 @@ if (container) {
   root.render(
     <StrictMode>
       <Provider store={store}>
-        <App />
+        <HeroUIProvider>
+          <App />
+        </HeroUIProvider>
       </Provider>
     </StrictMode>,
   )
