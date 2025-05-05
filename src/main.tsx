@@ -5,6 +5,7 @@ import { App } from "./App"
 import { store } from "./app/store"
 import './index.css'
 import { HeroUIProvider } from "@heroui/react"
+import { ThemeProvider } from "./components"
 
 const container = document.getElementById("root")
 
@@ -15,7 +16,9 @@ if (container) {
     <StrictMode>
       <Provider store={store}>
         <HeroUIProvider>
-          <App />
+          <ThemeProvider>
+            <App />
+          </ThemeProvider>
         </HeroUIProvider>
       </Provider>
     </StrictMode>,
