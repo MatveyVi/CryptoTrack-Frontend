@@ -1,9 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit'
-// import { yourReducer } from '../features/yourFeature/yourSlice'
+import { api } from './services/api'
 
 export const store = configureStore({
   reducer: {
-    // yourFeature: yourReducer
+    [api.reducerPath]: api.reducer,
+    
   },
   //middleware: (getDefaultMiddleware) =>
     //getDefaultMiddleware().concat(api.middleware).prepend(listenerMiddleware.middleware)
