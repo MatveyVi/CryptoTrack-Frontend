@@ -26,12 +26,21 @@ export type Coin = {
     updatedAt: string;
 }
 
+export type Chart = {
+    _id?: string;
+    coinId: string;
+    interval: '1d' | '7d' | '30d' | '90d' | '1y';
+    prices: number[][];
+    market_caps: number[][];
+    total_volumes: number[][];
+    createdAt?: string;
+    updatedAt?: string;
+  }
 
 
 
 
-
-// api types
+// UserApi types
 export type UserResponse = {
     token: string;
     user: User;
@@ -51,3 +60,6 @@ export type UpdateUser = {
     userData: FormData;
     id: string;
 }
+
+// CoinApi types
+

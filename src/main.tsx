@@ -5,7 +5,7 @@ import { App } from "./App"
 import { store } from "./app/store"
 import './index.css'
 import { HeroUIProvider } from "@heroui/react"
-import { ThemeProvider } from "./components"
+import { ThemeProvider } from "./components/theme-provider"
 
 const container = document.getElementById("root")
 
