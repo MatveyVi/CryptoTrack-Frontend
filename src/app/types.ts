@@ -41,3 +41,13 @@ export type LoginPayload = {
     email: string;
     password: string;
 }
+
+export type RegisterPayoad = {
+    name: string;
+    email: string;
+    password: string;
+}
+export type UpdateUser = {
+    userData: FormData;
+    id: string;
+}
