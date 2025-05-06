@@ -1,9 +1,9 @@
 import { api } from "./api";
-import { LoginPayload, User, UserResponse } from "../types";
+import { LoginPayload, UserResponse } from "../types";
 
 export const userApi = api.injectEndpoints({
     endpoints: (builder) => ({
-        login: builder.mutation<LoginPayload, UserResponse>({
+        login: builder.mutation<UserResponse, LoginPayload>({
             query: (userData) => ({
                 url: '/login',
                 method: 'POST',

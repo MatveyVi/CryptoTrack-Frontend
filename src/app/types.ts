@@ -25,3 +25,19 @@ export type Coin = {
     createdAt: string;
     updatedAt: string;
 }
+
+
+
+
+
+
+// api types
+export type UserResponse = {
+    token: string;
+    user: User;
+}
+
+export type LoginPayload = {
+    email: string;
+    password: string;
+}
