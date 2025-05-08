@@ -1,43 +1,37 @@
-import React, { useState } from 'react'
+    import React, { useEffect, useState } from 'react'
 
-type ThemeContextType = {
-    theme: 'dark' | 'purple-dark',
-    toggleTheme: () => void;
-}
-
-export const ThemeContext = React.createContext<ThemeContextType>({
-    theme: 'purple-dark',
-    toggleTheme: () => null
-})
-
-export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
-    const storedTheme = localStorage.getItem('theme')
-    const currentTheme = storedTheme ? storedTheme as 'dark' | 'purple-dark' : 'purple-dark'
-
-    const [theme, setTheme] = useState(currentTheme)
-
-    const toggleTheme = () => {
-        setTheme((prevTheme) => {
-            const newTheme = prevTheme === 'purple-dark' ? 'dark' : 'purple-dark'
-            localStorage.setItem('theme', newTheme)
-
-            return newTheme
-        })
+    type ThemeContextType = {
+        theme: 'blue' | 'emerald',
+        toggleTheme: () => void;
     }
-    return (
-        <ThemeContext.Provider value={{ theme, toggleTheme }}>
-            <main
-                className={`
-                    ${theme}
-                    transition-colors
-                    duration-500
-                    text-foreground bg-background
-                    min-h-screen
-                `}
-            >
+
+    export const ThemeContext = React.createContext<ThemeContextType>({
+        theme: 'blue',
+        toggleTheme: () => null
+    })
+
+    export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
+        const storedTheme = localStorage.getItem('theme')
+        const currentTheme = storedTheme ? storedTheme as 'emerald' | 'blue' : 'emerald'
+
+        const [theme, setTheme] = useState(currentTheme)
+
+        const toggleTheme = () => {
+            setTheme((prevTheme) => {
+                const newTheme = prevTheme === 'blue' ? 'emerald' : 'blue'
+                localStorage.setItem('theme', newTheme)
+
+                return newTheme
+            })
+        }
+        useEffect(() => {
+            document.documentElement.className = theme; // 'blue-dark', 'dark', 'light'
+        }, [theme]);
+        return (
+            <ThemeContext.Provider value={{ theme, toggleTheme }}>
+            <main className="bg-background text-foreground transition-colors duration-500 min-h-screen">
                 {children}
             </main>
-
-        </ThemeContext.Provider>
-    )
-}
+            </ThemeContext.Provider>
+        )
+    }
