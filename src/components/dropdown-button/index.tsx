@@ -1,7 +1,7 @@
 import { Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, NavbarContent, NavbarItem } from '@heroui/react'
 import React from 'react'
 import { BsCurrencyExchange } from 'react-icons/bs'
-import { FaChevronDown } from 'react-icons/fa'
+import { FaBitcoin, FaChevronDown } from 'react-icons/fa'
 import { LuTrendingUpDown } from 'react-icons/lu'
 import { Link } from 'react-router-dom'
 
@@ -14,6 +14,7 @@ export const DropDownButton = () => {
                         <Button
                             disableRipple
                             className="p-0 bg-transparent data-[hover=true]:bg-transparent"
+                            startContent={<FaBitcoin />}
                             endContent={<FaChevronDown />}
                             radius="sm"
                             variant="solid"

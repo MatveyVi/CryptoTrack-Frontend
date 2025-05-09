@@ -1,37 +1,39 @@
-    import React, { useEffect, useState } from 'react'
+// ThemeContext.tsx
+import React, { useEffect, useState } from 'react';
 
-    type ThemeContextType = {
-        theme: 'blue' | 'emerald',
-        toggleTheme: () => void;
-    }
+export type ThemeType = 'blue' | 'emerald';
 
-    export const ThemeContext = React.createContext<ThemeContextType>({
-        theme: 'blue',
-        toggleTheme: () => null
-    })
+type ThemeContextType = {
+  theme: ThemeType;
+  toggleTheme: () => void;
+};
 
-    export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
-        const storedTheme = localStorage.getItem('theme')
-        const currentTheme = storedTheme ? storedTheme as 'emerald' | 'blue' : 'emerald'
+export const ThemeContext = React.createContext<ThemeContextType>({
+  theme: 'blue',
+  toggleTheme: () => {},
+});
 
-        const [theme, setTheme] = useState(currentTheme)
+export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
+  const storedTheme = localStorage.getItem('theme');
+  const currentTheme = (storedTheme as ThemeType) || 'blue';
 
-        const toggleTheme = () => {
-            setTheme((prevTheme) => {
-                const newTheme = prevTheme === 'blue' ? 'emerald' : 'blue'
-                localStorage.setItem('theme', newTheme)
+  const [theme, setTheme] = useState<ThemeType>(currentTheme);
 
-                return newTheme
-            })
-        }
-        useEffect(() => {
-            document.documentElement.className = theme; // 'blue-dark', 'dark', 'light'
-        }, [theme]);
-        return (
-            <ThemeContext.Provider value={{ theme, toggleTheme }}>
-            <main className="bg-background text-foreground transition-colors duration-500 min-h-screen">
-                {children}
-            </main>
-            </ThemeContext.Provider>
-        )
-    }
+  const toggleTheme = () => {
+    const newTheme = theme === 'emerald' ? 'blue' : 'emerald';
+    localStorage.setItem('theme', newTheme);
+    setTheme(newTheme);
+  };
+
+  useEffect(() => {
+    document.documentElement.className = theme;
+  }, [theme]);
+
+  return (
+    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+      <main className="bg-background text-foreground transition-colors duration-500 min-h-screen">
+        {children}
+      </main>
+    </ThemeContext.Provider>
+  );
+};

@@ -1,4 +1,4 @@
-import { createApi, fetchBaseQuery, retry } from "@reduxjs/toolkit/query/react";
+import { createApi, FetchArgs, fetchBaseQuery, retry } from "@reduxjs/toolkit/query/react";
 import { BASE_URL } from "../../constants";
 import { RootState } from "../store";
 
@@ -17,9 +17,19 @@ const baseQuery = fetchBaseQuery({
 
 const baseQueryWithRetry = retry(baseQuery, { maxRetries: 1 })
 
+const baseQueryWithAuthRedirect = async (args: string | FetchArgs, api: any, extraOptions: any) => {
+    const result = await baseQueryWithRetry(args, api, extraOptions);
+  
+    if (result?.error?.status === 401) {
+      window.location.href = "/auth"; // сервер вернул 401 то редиректим на страницу авторизации
+    }
+  
+    return result;
+  };
+
 export const api = createApi({
     reducerPath: 'splitApi',
-    baseQuery: baseQueryWithRetry,
+    baseQuery: baseQueryWithAuthRedirect,
     refetchOnMountOrArgChange: true, 
     endpoints: () => ({})
 })
