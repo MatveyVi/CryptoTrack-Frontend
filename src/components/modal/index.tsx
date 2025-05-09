@@ -45,22 +45,18 @@ export const Modal: React.FC<Props> = ({
             <>
               <ModalHeader className="flex flex-col gap-1 font-bold">{header}</ModalHeader>
               <ModalBody>
-                <div className="flex justify-center text-9xl text-green-500 drop-shadow-lg">
-                    {/* <PiSealWarningFill /> */}
+                <div className="flex justify-center text-9xl text-green-500 drop-shadow-lg animate-pulse">
                     {icon}
                 </div>
                 <p className='font-semibold'>
-                    {/* Мы отправили письмо для активации аккаунта. Перейдите по ссылке, чтобы завершить регистрацию. */}
                     {text}
                 </p>
                 <p className='text-small text-'>
-                    {/* Если не видите сообщение, проверьте папку "Спам" */}
                     {note}
                 </p>
               </ModalBody>
               <ModalFooter>
                 <Button fullWidth className="bg-[#6f4ef2] shadow-lg shadow-indigo-500/20" onPress={onClose}>
-                  {/* Понял! */}
                   {button}
                 </Button>
               </ModalFooter>
