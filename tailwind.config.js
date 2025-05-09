@@ -52,7 +52,7 @@ export default {
             border: "#30363d",
             card: "#161b22",
           },
-        },
+        },  
         green: {
           extend: "dark",
           colors: {

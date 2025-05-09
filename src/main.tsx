@@ -15,6 +15,7 @@ import { Portfolio } from "./pages/portfolio"
 import { Market } from "./pages/market"
 import { Trending } from "./pages/trending"
 import { CurrentCoin } from "./pages/current-coin"
+import { AuthGuard } from "./features/auth-guard"
 
 const router = createBrowserRouter([
   {
@@ -63,7 +64,9 @@ if (container) {
       <Provider store={store}>
         <HeroUIProvider>
           <ThemeProvider>
-            <RouterProvider router={ router } />
+            <AuthGuard>
+              <RouterProvider router={ router } />
+            </AuthGuard>
           </ThemeProvider>
         </HeroUIProvider>
       </Provider>
