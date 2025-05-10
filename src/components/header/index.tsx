@@ -1,20 +1,25 @@
-import { Navbar, NavbarBrand, NavbarContent, NavbarItem } from '@heroui/react'
+import { Button, Navbar, NavbarBrand, NavbarContent, NavbarItem } from '@heroui/react'
 import { SITE_NAME } from '../../constants'
-import React from 'react'
+import React, { useState } from 'react'
 import { DropDownButton } from '../dropdown-button'
 import { NavButton } from '../nav-button'
 import { VscGraph } from 'react-icons/vsc'
 import { MdFavorite } from 'react-icons/md'
 import { useSelector } from 'react-redux'
-import { selectIsAuthenticated } from '../../features/user/userSlice'
-import { Button } from '../button'
+import { selectCurrent, selectIsAuthenticated } from '../../features/user/userSlice'
 import { IoMdLogIn } from 'react-icons/io'
+import { UserCard } from '../user-card'
 
 
 
 
 export const Header = () => {
     const isAuthenticated = useSelector(selectIsAuthenticated)
+    const user = useSelector(selectCurrent)
+
+    const [isProfileOpen, setIsProfileOpen] = useState(false)
+    const openModal = () => setIsProfileOpen(true)
+    const closeModal = () => setIsProfileOpen(false)
     return (
         <Navbar>
             <NavbarBrand>
@@ -37,8 +42,13 @@ export const Header = () => {
                     <NavbarItem className='text-xl'>
                         {
                             isAuthenticated ? (
-                                <Button>
-                                    Profile(dev)
+                                <Button
+                                    onClick={setIsProfileOpen(true)}
+                                >
+                                    <UserCard 
+                                        name={user?.name || ''}
+                                        avatarUrl={user?.avatarUrl || ''}
+                                    />
                                 </Button>
                             ) :
                                 (

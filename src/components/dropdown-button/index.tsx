@@ -36,7 +36,7 @@ export const DropDownButton = () => {
                         startContent={<BsCurrencyExchange />} // icon
                         as={Link}
                         // @ts-ignore
-                        to='/market'
+                        to='/home'
                     >
                         Market
                     </DropdownItem>

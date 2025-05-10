@@ -73,7 +73,7 @@ export const CoinCard: React.FC<Props> = ({
                     <p className='w-1/6'>{formattedPrice(total_volume)}</p>
                     {
                         circulating_supply ? (<div className="w-1/6">
-                            <p className="text-xs text-muted-foreground mb-1 w-1/6">Supply</p>
+                            {/* <p className="text-xs text-muted-foreground mb-1 w-1/6">Supply</p> */}
                             <div className="w-full h-2 bg-muted rounded-full">
                                 <div
                                     className="h-2 bg-blue-600 rounded-full"
