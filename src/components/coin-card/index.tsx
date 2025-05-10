@@ -1,36 +1,37 @@
 import { Button, Card, CardBody, CardHeader, Divider } from '@heroui/react'
 import React, { JSX } from 'react'
+import { FaRegStar } from 'react-icons/fa';
 
 type Props = {
     id: string;
-    circulating_supply: number;
-    max_supply: number;
-    marketcap_rank: number;
-    icon: string;
-    name: string;
     symbol: string;
-    price: number;
-    percentage: number;
-    marketcap: number;
-    volume: number;
+    name: string;
+    image: string;
+    current_price: number;
+    market_cap: number;
+    market_cap_rank: number;
+    total_volume: number;
+    price_change_percentage_24h: number;
     high_24h: number;
     low_24h: number;
+    circulating_supply: number;
+    max_supply: number;
 }
 
 export const CoinCard: React.FC<Props> = ({
     id,
-    circulating_supply,
-    max_supply,
-    marketcap_rank,
-    icon,
-    name,
     symbol,
-    price,
-    percentage,
-    marketcap,
-    volume,
+    name,
+    image,
+    current_price,
+    market_cap,
+    market_cap_rank,
+    total_volume,
+    price_change_percentage_24h,
     high_24h,
     low_24h,
+    circulating_supply,
+    max_supply,
 
 }) => {
     const formattedPrice = (price: number): string => {
@@ -42,10 +43,10 @@ export const CoinCard: React.FC<Props> = ({
     const formattedPercentage = (percentage: number): JSX.Element => {
         const formatted = percentage.toFixed(2)
         return (
-            <p className={percentage >= 0 ? 'text-green-500' : 'text-red-500'}>
+            <span className={percentage >= 0 ? 'text-green-500' : 'text-red-500'}>
                 {percentage >= 0 ? '+' : ''}
                 {formatted}%
-            </p>
+            </span>
         )
     }
 
@@ -54,22 +55,22 @@ export const CoinCard: React.FC<Props> = ({
         <Card fullWidth radius='none' className="flex flex-row transition hover:shadow-lg cursor-pointer font-bold">
             <CardHeader className=''>
                 <div className='flex flex-row w-1/4'>
-                    <p>{marketcap_rank}</p>
+                    <p>{market_cap_rank}</p>
                     <Divider orientation='vertical' className='mx-8' />
-                    <img src={icon} alt={name} className='w-8 h-8 rounded-full mr-4' />
+                    <img src={image} alt={name} className='w-8 h-8 rounded-full mr-4' />
                     <div className='mr-8'>
                         <p className='text-base'>{name}</p>
                         <p className='text-sm text-muted-foreground opacity-65'>{symbol.toUpperCase()}</p>
                     </div>
-                    <p className='ml-auto'>{formattedPrice(price)}</p>
+                    <p className='ml-auto my-auto'>{formattedPrice(current_price)}</p>
                 </div>
 
                 <div className='flex flex-row items-center w-full ml-8'>
-                    <p className='w-1/6'>{formattedPercentage(percentage)}</p>
-                    <p className='text-red-400 w-1/6'>{formattedPrice(low_24h)}</p>
-                    <p className='text-green-400 w-1/6'>{formattedPrice(high_24h)}</p>
-                    <p className='w-1/6'>{formattedPrice(marketcap)}</p>
-                    <p className='w-1/6'>{formattedPrice(volume)}</p>
+                    <p className='w-1/6'>{formattedPercentage(price_change_percentage_24h)}</p>
+                    <p className='text-red-200 w-1/6'>{formattedPrice(low_24h)}</p>
+                    <p className='text-green-200 w-1/6'>{formattedPrice(high_24h)}</p>
+                    <p className='w-1/6'>{formattedPrice(market_cap)}</p>
+                    <p className='w-1/6'>{formattedPrice(total_volume)}</p>
                     {
                         circulating_supply ? (<div className="w-1/6">
                             <p className="text-xs text-muted-foreground mb-1 w-1/6">Supply</p>
@@ -85,8 +86,11 @@ export const CoinCard: React.FC<Props> = ({
                     }
 
 
-                    <Button>
-                        Watchlist
+                    <Button 
+                        size='sm'
+                        color='success'
+                    >
+                        <FaRegStar />
                     </Button>
                 </div>
             </CardHeader>

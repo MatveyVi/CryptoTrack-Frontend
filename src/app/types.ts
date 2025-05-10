@@ -16,15 +16,22 @@ export type Coin = {
     id: string;
     symbol: string;
     name: string;
-    image: string | { [key: string] : string };
+    image: string | { [key: string]: string }; // зависит от API
     current_price: number;
     market_cap: number;
     market_cap_rank: number;
     total_volume: number;
     price_change_percentage_24h: number;
+    high_24h: number;
+    low_24h: number;
+    circulating_supply: number;
+    max_supply?: number;
+    last_updated: string;
+    tags: string[];
     createdAt: string;
     updatedAt: string;
-}
+  };
+  
 
 export type Chart = {
     _id?: string;

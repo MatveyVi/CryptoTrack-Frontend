@@ -3,12 +3,13 @@ import { api } from "./api";
 
 export const coinApi = api.injectEndpoints({
     endpoints: (builder) => ({
-        market: builder.query<Coin[], void>({
-            query: () => ({
-                url: '/coins/market',
-                method: 'GET'
-            })
-        }), 
+        market: builder.query<Coin[], { page?: number; limit?: number; timestamp?: any }>({
+            query: ({ page = 1, limit = 20, timestamp} = {}) => ({
+              url: '/coins/market',
+              method: 'GET',
+              params: { page, limit },
+            }),
+          }),
         trending: builder.query<Coin[], void>({
             query: () => ({
                 url: '/coins/trending',
