@@ -63,7 +63,7 @@ export const Register: React.FC<Props> = ({
         }}
         header='Почти готово!'
         icon={<PiSealWarningFill />}
-        text='Мы отправили письмо для активации аккаунта. Перейдите по ссылке, чтобы завершить регистрацию.'
+        text='Мы отправили Вам письмо для активации аккаунта на почту. Перейдите по ссылке в письме, чтобы завершить регистрацию.'
         note='Если не видите сообщение, проверьте папку "Спам"'
         button='Понял!'
       />
@@ -88,7 +88,6 @@ export const Register: React.FC<Props> = ({
         type='password'
         required='Обязательное поле'
       />
-      <ErrorMessage error={error} />
       <p className='text-center text-small'>
         Уже есть аккаунт?{" "}
         <Link 
@@ -104,6 +103,7 @@ export const Register: React.FC<Props> = ({
           </Button>
         </div>
       </p>
+      <ErrorMessage error={error} />
     </form>
   )
 }
