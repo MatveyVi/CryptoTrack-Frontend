@@ -40,42 +40,50 @@ export const CoinCard: React.FC<Props> = ({
         })
     }
     const formattedPercentage = (percentage: number): JSX.Element => {
+        const formatted = percentage.toFixed(2)
         return (
             <p className={percentage >= 0 ? 'text-green-500' : 'text-red-500'}>
                 {percentage >= 0 ? '+' : ''}
-                {percentage}%
+                {formatted}%
             </p>
         )
     }
 
+
     return (
-        <Card fullWidth className="flex flex-row transition hover:shadow-lg cursor-pointer font-bold">
+        <Card fullWidth radius='none' className="flex flex-row transition hover:shadow-lg cursor-pointer font-bold">
             <CardHeader className=''>
-                <p>{marketcap_rank}</p>
-                <Divider orientation='vertical' className='mx-8' />
-                <img src={icon} alt={name} className='w-8 h-8 rounded-full mr-4' />
-                <div className='mr-8'>
-                    <p className='text-base'>{name}</p>
-                    <p className='text-sm text-muted-foreground opacity-65'>{symbol.toUpperCase()}</p>
-                </div>
-                <p className='mr-32'>{formattedPrice(price)}</p>
-                <div className='flex flex-row items-center gap-3 w-full justify-between'>
-                    <p className=''>{formattedPercentage(percentage)}</p>
-                    <p className='text-red-400'>{formattedPrice(low_24h)}</p>
-                    <p className='text-green-400'>{formattedPrice(high_24h)}</p>
-                    <p>{formattedPrice(marketcap)}</p>
-                    <p>{formattedPrice(volume)}</p>
-                    <div className="w-1/6">
-                        <p className="text-xs text-muted-foreground mb-1">Supply</p>
-                        <div className="w-full h-2 bg-muted rounded-full">
-                            <div
-                                className="h-2 bg-blue-600 rounded-full"
-                                style={{
-                                    width: `${(circulating_supply / max_supply) * 100}%`,
-                                }}
-                            />
-                        </div>
+                <div className='flex flex-row w-1/4'>
+                    <p>{marketcap_rank}</p>
+                    <Divider orientation='vertical' className='mx-8' />
+                    <img src={icon} alt={name} className='w-8 h-8 rounded-full mr-4' />
+                    <div className='mr-8'>
+                        <p className='text-base'>{name}</p>
+                        <p className='text-sm text-muted-foreground opacity-65'>{symbol.toUpperCase()}</p>
                     </div>
+                    <p className='ml-auto'>{formattedPrice(price)}</p>
+                </div>
+
+                <div className='flex flex-row items-center w-full ml-8'>
+                    <p className='w-1/6'>{formattedPercentage(percentage)}</p>
+                    <p className='text-red-400 w-1/6'>{formattedPrice(low_24h)}</p>
+                    <p className='text-green-400 w-1/6'>{formattedPrice(high_24h)}</p>
+                    <p className='w-1/6'>{formattedPrice(marketcap)}</p>
+                    <p className='w-1/6'>{formattedPrice(volume)}</p>
+                    {
+                        circulating_supply ? (<div className="w-1/6">
+                            <p className="text-xs text-muted-foreground mb-1 w-1/6">Supply</p>
+                            <div className="w-full h-2 bg-muted rounded-full">
+                                <div
+                                    className="h-2 bg-blue-600 rounded-full"
+                                    style={{
+                                        width: `${(circulating_supply / max_supply) * 100}%`,
+                                    }}
+                                />
+                            </div>
+                        </div>) : (<p>Supply</p>)
+                    }
+
 
                     <Button>
                         Watchlist
