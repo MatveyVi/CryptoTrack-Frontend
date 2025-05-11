@@ -1,14 +1,21 @@
 import { Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, User } from '@heroui/react'
-import React from 'react'
+import React, { useState } from 'react'
 import { CiUser } from 'react-icons/ci';
+import { FiLogOut } from 'react-icons/fi';
+import { useDispatch } from 'react-redux';
+import { logout } from '../../features/user/userSlice';
+import { useNavigate } from 'react-router-dom';
+import { IoMdSettings } from 'react-icons/io';
+import { Settings } from '../settings';
 
 type Props = {
     isOpen: boolean;
     onOpen: () => void;
     onClose: () => void;
     user: string;
-    button?: string;
-    avatarUrl?: string;
+    email: string;
+    avatarUrl: string;
+    button: string;
 }
 
 export const UserModal: React.FC<Props> = ({
@@ -16,10 +23,23 @@ export const UserModal: React.FC<Props> = ({
     onOpen,
     onClose,
     user,
-    button,
+    email,
     avatarUrl,
+    button,
 }) => {
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const handleLogout = () => {
+        dispatch(logout())
+        localStorage.removeItem('token')
+        navigate('/auth')
+    }
+
+        const [isSettingsOpen, setIsSettingsOpen] = useState(false)
+        const openSettings = () => setIsSettingsOpen(true)
+
   return (
+    <>
     <Modal
         backdrop="blur"
         classNames={{
@@ -36,11 +56,31 @@ export const UserModal: React.FC<Props> = ({
         <ModalContent>
             {(onClose) => (
                 <>
-                <ModalHeader className='flex justify-center font-bold text-xl'>
+                <ModalHeader className='flex justify-center font-bold text-2xl'>
                     <User name={user} avatarProps={{src: `${avatarUrl}`}} />
                 </ModalHeader>
-                <ModalBody>
-
+                <ModalBody className='flex justify-center items-center font-bold'>
+                    <p className='mb-4'>Почта: {email}</p>
+                    <Button
+                        className='font-bold'
+                        color='primary'
+                        size='md'
+                        fullWidth
+                        startContent={<IoMdSettings />}
+                        onClick={openSettings}
+                    >
+                        Настройки
+                    </Button>
+                    <Button
+                        className='font-bold'
+                        color='danger'
+                        size='md'
+                        fullWidth
+                        startContent={<FiLogOut/>}
+                        onClick={handleLogout}
+                    >
+                        Выйти из аккаунта
+                    </Button>
                 </ModalBody>
                 <ModalFooter>
                     <Button
@@ -53,5 +93,14 @@ export const UserModal: React.FC<Props> = ({
             )}
         </ModalContent>
     </Modal>
+    <Settings 
+        isOpen={isSettingsOpen}
+        onOpen={() => setIsSettingsOpen(true)}
+        onClose={() => {
+            setIsSettingsOpen(false)
+        }}
+        button='Сохранить'
+    />
+    </>
   )
 }

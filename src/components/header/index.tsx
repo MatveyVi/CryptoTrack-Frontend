@@ -69,6 +69,7 @@ export const Header = () => {
                 }}
                 user={user?.name || ''}
                 avatarUrl={`${BASE_URL}${user?.avatarUrl}`}
+                email={user?.email || ''}
                 button='Закрыть'
             />
         </>

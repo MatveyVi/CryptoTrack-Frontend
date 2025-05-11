@@ -56,7 +56,7 @@ export default {
         green: {
           extend: "dark",
           colors: {
-            background: "#03624c",
+            background: "#00232a",
             foreground: "#c9d1d9",
             primary: {
               DEFAULT: "#58a6ff",
