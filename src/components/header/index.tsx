@@ -1,5 +1,5 @@
-import { Button, Navbar, NavbarBrand, NavbarContent, NavbarItem } from '@heroui/react'
-import { SITE_NAME } from '../../constants'
+import { Button, Modal, Navbar, NavbarBrand, NavbarContent, NavbarItem } from '@heroui/react'
+import { BASE_URL, SITE_NAME } from '../../constants'
 import React, { useState } from 'react'
 import { DropDownButton } from '../dropdown-button'
 import { NavButton } from '../nav-button'
@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux'
 import { selectCurrent, selectIsAuthenticated } from '../../features/user/userSlice'
 import { IoMdLogIn } from 'react-icons/io'
 import { UserCard } from '../user-card'
+import { UserModal } from '../user-modal'
 
 
 
@@ -19,33 +20,33 @@ export const Header = () => {
 
     const [isProfileOpen, setIsProfileOpen] = useState(false)
     const openModal = () => setIsProfileOpen(true)
-    const closeModal = () => setIsProfileOpen(false)
     return (
-        <Navbar>
-            <NavbarBrand>
-                <p className="font-bold text-inherit text-xl">{SITE_NAME}</p>
-            </NavbarBrand>
-            <DropDownButton />
-            <NavbarContent justify='end'>
-                <NavbarItem>
-                    <NavButton href='portfolio' icon={<VscGraph />}>
-                        Portfolio
-                    </NavButton>
-                </NavbarItem>
-                <NavbarItem>
-                    <NavButton href='watchlist' icon={<MdFavorite />}>
-                        Watchlist
-                    </NavButton>
-                </NavbarItem>
-            </NavbarContent>
-            <NavbarContent justify='end'>
+        <>
+            <Navbar>
+                <NavbarBrand>
+                    <p className="font-bold text-inherit text-xl">{SITE_NAME}</p>
+                </NavbarBrand>
+                <DropDownButton />
+                <NavbarContent justify='end'>
+                    <NavbarItem>
+                        <NavButton href='portfolio' icon={<VscGraph />}>
+                            Portfolio
+                        </NavButton>
+                    </NavbarItem>
+                    <NavbarItem>
+                        <NavButton href='watchlist' icon={<MdFavorite />}>
+                            Watchlist
+                        </NavButton>
+                    </NavbarItem>
+                </NavbarContent>
+                <NavbarContent justify='end'>
                     <NavbarItem className='text-xl'>
                         {
                             isAuthenticated ? (
                                 <Button
-                                    onClick={setIsProfileOpen(true)}
+                                    onClick={openModal}
                                 >
-                                    <UserCard 
+                                    <UserCard
                                         name={user?.name || ''}
                                         avatarUrl={user?.avatarUrl || ''}
                                     />
@@ -58,7 +59,18 @@ export const Header = () => {
                                 )
                         }
                     </NavbarItem>
-            </NavbarContent>
-        </Navbar>
+                </NavbarContent>
+            </Navbar>
+            <UserModal 
+                isOpen={isProfileOpen}
+                onOpen={() => setIsProfileOpen(true)}
+                onClose={() => {
+                    setIsProfileOpen(false)
+                }}
+                user={user?.name || ''}
+                avatarUrl={`${BASE_URL}${user?.avatarUrl}`}
+                button='Закрыть'
+            />
+        </>
     )
 }

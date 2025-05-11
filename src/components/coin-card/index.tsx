@@ -57,7 +57,7 @@ export const CoinCard: React.FC<Props> = ({
                 <div className='flex flex-row w-1/4'>
                     <p>{market_cap_rank}</p>
                     <Divider orientation='vertical' className='mx-8' />
-                    <img src={image} alt={name} className='w-8 h-8 rounded-full mr-4' />
+                    <img src={image} alt={name} className='w-8 h-8 rounded-full my-auto mr-4' />
                     <div className='mr-8'>
                         <p className='text-base'>{name}</p>
                         <p className='text-sm text-muted-foreground opacity-65'>{symbol.toUpperCase()}</p>
@@ -67,8 +67,8 @@ export const CoinCard: React.FC<Props> = ({
 
                 <div className='flex flex-row items-center w-full ml-8'>
                     <p className='w-1/6'>{formattedPercentage(price_change_percentage_24h)}</p>
-                    <p className='text-red-200 w-1/6'>{formattedPrice(low_24h)}</p>
-                    <p className='text-green-200 w-1/6'>{formattedPrice(high_24h)}</p>
+                    <p className='text-red-400 w-1/6'>{formattedPrice(low_24h)}</p>
+                    <p className='text-green-400 w-1/6'>{formattedPrice(high_24h)}</p>
                     <p className='w-1/6'>{formattedPrice(market_cap)}</p>
                     <p className='w-1/6'>{formattedPrice(total_volume)}</p>
                     {
