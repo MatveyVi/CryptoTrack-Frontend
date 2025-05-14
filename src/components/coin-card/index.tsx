@@ -1,6 +1,7 @@
 import { Button, Card, CardBody, CardHeader, Divider } from '@heroui/react'
 import React, { JSX } from 'react'
 import { FaRegStar } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 
 type Props = {
     id: string;
@@ -34,6 +35,8 @@ export const CoinCard: React.FC<Props> = ({
     max_supply,
 
 }) => {
+    const navigate = useNavigate()
+
     const formattedPrice = (price: number): string => {
         return price.toLocaleString('en-US', {
             style: 'currency',
@@ -52,48 +55,55 @@ export const CoinCard: React.FC<Props> = ({
 
 
     return (
-        <Card fullWidth radius='none' className="flex flex-row transition hover:shadow-lg cursor-pointer font-bold">
-            <CardHeader className=''>
-                <div className='flex flex-row w-1/4'>
-                    <p>{market_cap_rank}</p>
-                    <Divider orientation='vertical' className='mx-8' />
-                    <img src={image} alt={name} className='w-8 h-8 rounded-full my-auto mr-4' />
-                    <div className='mr-8'>
-                        <p className='text-base'>{name}</p>
-                        <p className='text-sm text-muted-foreground opacity-65'>{symbol.toUpperCase()}</p>
+        <div
+            onClick={() => {
+                navigate(`/current-coin/${id}`)
+                console.log("Navigate")
+            }}
+        >
+            <Card fullWidth radius='none' className="flex flex-row transition hover:shadow-lg cursor-pointer font-bold">
+                <CardHeader className=''>
+                    <div className='flex flex-row w-1/4'>
+                        <p>{market_cap_rank}</p>
+                        <Divider orientation='vertical' className='mx-8' />
+                        <img src={image} alt={name} className='w-8 h-8 rounded-full my-auto mr-4' />
+                        <div className='mr-8'>
+                            <p className='text-base'>{name}</p>
+                            <p className='text-sm text-muted-foreground opacity-65'>{symbol.toUpperCase()}</p>
+                        </div>
+                        <p className='ml-auto my-auto'>{formattedPrice(current_price)}</p>
                     </div>
-                    <p className='ml-auto my-auto'>{formattedPrice(current_price)}</p>
-                </div>
 
-                <div className='flex flex-row items-center w-full ml-8'>
-                    <p className='w-1/6'>{formattedPercentage(price_change_percentage_24h)}</p>
-                    <p className='text-red-400 w-1/6'>{formattedPrice(low_24h)}</p>
-                    <p className='text-green-400 w-1/6'>{formattedPrice(high_24h)}</p>
-                    <p className='w-1/6'>{formattedPrice(market_cap)}</p>
-                    <p className='w-1/6'>{formattedPrice(total_volume)}</p>
-                    {
-                        circulating_supply ? (<div className="w-1/6">
-                            {/* <p className="text-xs text-muted-foreground mb-1 w-1/6">Supply</p> */}
-                            <div className="w-full h-2 bg-muted rounded-full">
-                                <div
-                                    className="h-2 bg-blue-600 rounded-full"
-                                    style={{
-                                        width: `${(circulating_supply / max_supply) * 100}%`,
-                                    }}
-                                />
-                            </div>
-                        </div>) : (<p>Supply</p>)
-                    }
+                    <div className='flex flex-row items-center w-full ml-8'>
+                        <p className='w-1/6'>{formattedPercentage(price_change_percentage_24h)}</p>
+                        <p className='text-red-400 w-1/6'>{formattedPrice(low_24h)}</p>
+                        <p className='text-green-400 w-1/6'>{formattedPrice(high_24h)}</p>
+                        <p className='w-1/6'>{formattedPrice(market_cap)}</p>
+                        <p className='w-1/6'>{formattedPrice(total_volume)}</p>
+                        {
+                            circulating_supply ? (<div className="w-1/6">
+                                {/* <p className="text-xs text-muted-foreground mb-1 w-1/6">Supply</p> */}
+                                <div className="w-full h-2 bg-muted rounded-full">
+                                    <div
+                                        className="h-2 bg-blue-600 rounded-full"
+                                        style={{
+                                            width: `${(circulating_supply / max_supply) * 100}%`,
+                                        }}
+                                    />
+                                </div>
+                            </div>) : (<p>Supply</p>)
+                        }
 
 
-                    <Button 
-                        size='sm'
-                        color='success'
-                    >
-                        <FaRegStar />
-                    </Button>
-                </div>
-            </CardHeader>
-        </Card>
+                        <Button
+                            size='sm'
+                            color='success'
+                        >
+                            <FaRegStar />
+                        </Button>
+                    </div>
+                </CardHeader>
+            </Card>
+        </div>
     )
 }

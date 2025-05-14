@@ -37,13 +37,12 @@ export const Login: React.FC<Props> = ({
     const navigate = useNavigate()
     const [error, setError] = useState('')
     const [triggerCurrentQuery] = useLazyCurrentQuery()
-    const [triggerMarketQuery] = useLazyMarketQuery()
 
     const onSubmit = async (data: Login) => {
         try {
             await login(data).unwrap()
-            await triggerMarketQuery().unwrap()
             navigate('/home')
+            window.location.reload();
         } catch (error) {
             if (hasErrorField(error)) {
                 setError(error.data.error)

@@ -15,7 +15,7 @@ export const Settings: React.FC<Props> = ({
     button,
 }) => {
     
-const [selected, setSelected] = useState('profile   ')
+const [selected, setSelected] = useState('profile')
 
     return (
         <Modal
