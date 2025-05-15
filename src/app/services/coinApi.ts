@@ -26,7 +26,7 @@ export const coinApi = api.injectEndpoints({
             query: ({ coinId, interval }) => ({
                 url: `/coins/${coinId}/chart`,
                 method: 'GET',
-                params: [ interval ]
+                params: { interval }
             })
         })
     })
