@@ -37,6 +37,7 @@ export const DropDownButton = () => {
                         as={Link}
                         // @ts-ignore
                         to='/home'
+                        onClick={() => window.location.reload()}
                     >
                         Market
                     </DropdownItem>

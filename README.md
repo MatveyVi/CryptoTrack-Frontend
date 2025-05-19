@@ -1,27 +1,82 @@
-# vite-template-redux
+# 🚀 CryptoTrack Frontend
 
-Uses [Vite](https://vitejs.dev/), [Vitest](https://vitest.dev/), and [React Testing Library](https://github.com/testing-library/react-testing-library) to create a modern [React](https://react.dev/) app compatible with [Create React App](https://create-react-app.dev/)
+## 📝 Описание
+CryptoTrack Frontend - это современное веб-приложение для отслеживания криптовалют, построенное с использованием React и TypeScript. Приложение предоставляет интерактивные графики, актуальные данные о криптовалютах и удобный пользовательский интерфейс.
 
-```sh
-npx tiged reduxjs/redux-templates/packages/vite-template-redux my-app
+## 🛠 Технологии
+- ⚛️ React 19
+- 📘 TypeScript
+- 🎨 TailwindCSS
+- 📊 Chart.js
+- 🔄 Redux Toolkit
+- 🎭 Framer Motion
+- 🛣️ React Router
+- 📱 HeroUI
+
+## 🚀 Начало работы
+
+### Предварительные требования
+- Node.js (последняя LTS версия)
+- npm или yarn
+
+### Установка
+```bash
+# Клонирование репозитория
+git clone [URL репозитория]
+
+# Переход в директорию проекта
+cd CryptoTrackFrontend
+
+# Установка зависимостей
+npm install
 ```
 
-## Goals
+### Запуск проекта
+```bash
+# Запуск в режиме разработки
+npm run dev
 
-- Easy migration from Create React App or Vite
-- As beginner friendly as Create React App
-- Optimized performance compared to Create React App
-- Customizable without ejecting
+# Сборка проекта
+npm run build
 
-## Scripts
+# Предварительный просмотр собранного проекта
+npm run preview
+```
 
-- `dev`/`start` - start dev server and open browser
-- `build` - build for production
-- `preview` - locally preview production build
-- `test` - launch test runner
+## 🧪 Тестирование
+```bash
+# Запуск тестов
+npm run test
 
-## Inspiration
+# Проверка типов
+npm run type-check
+```
 
-- [Create React App](https://github.com/facebook/create-react-app/tree/main/packages/cra-template)
-- [Vite](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react)
-- [Vitest](https://github.com/vitest-dev/vitest/tree/main/examples/react-testing-lib)
+## 📋 Доступные скрипты
+- `npm run dev` - запуск сервера разработки
+- `npm run build` - сборка проекта
+- `npm run preview` - предварительный просмотр собранного проекта
+- `npm run test` - запуск тестов
+- `npm run type-check` - проверка типов TypeScript
+- `npm run lint` - проверка кода линтером
+- `npm run lint:fix` - автоматическое исправление проблем линтера
+- `npm run format` - форматирование кода
+- `npm run format:check` - проверка форматирования кода
+
+## 🏗️ Структура проекта
+```
+src/
+  ├── components/     # React компоненты
+  ├── pages/         # Страницы приложения
+  ├── store/         # Redux store
+  ├── hooks/         # Пользовательские хуки
+  ├── utils/         # Вспомогательные функции
+  ├── types/         # TypeScript типы
+  └── assets/        # Статические ресурсы
+```
+
+## 🤝 Вклад в проект
+Мы приветствуем вклад в развитие проекта! Пожалуйста, создавайте pull request'ы для предложения изменений.
+
+## 📄 Лицензия
+Этот проект распространяется под лицензией MIT. Подробности смотрите в файле LICENSE.
