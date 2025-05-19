@@ -65,7 +65,7 @@ export const CoinCard: React.FC<Props> = ({
                 <CardHeader className=''>
                     <div className='flex flex-row w-1/4'>
                         <p>{market_cap_rank}</p>
-                        <Divider orientation='vertical' className='mx-8' />
+                        <Divider orientation='vertical' className='mx-3' />
                         <img src={image} alt={name} className='w-8 h-8 rounded-full my-auto mr-4' />
                         <div className='mr-8'>
                             <p className='text-base'>{name}</p>
