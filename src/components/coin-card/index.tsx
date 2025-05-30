@@ -33,17 +33,21 @@ export const CoinCard: React.FC<Props> = ({
     low_24h,
     circulating_supply,
     max_supply,
-
 }) => {
     const navigate = useNavigate()
 
-    const formattedPrice = (price: number): string => {
+    const formattedPrice = (price?: number): string => {
+        if (price === undefined || price === null || isNaN(price)) return '—'
         return price.toLocaleString('en-US', {
             style: 'currency',
             currency: 'USD',
         })
     }
-    const formattedPercentage = (percentage: number): JSX.Element => {
+
+    const formattedPercentage = (percentage?: number): JSX.Element => {
+        if (percentage === undefined || percentage === null || isNaN(percentage)) {
+            return <span>—</span>
+        }
         const formatted = percentage.toFixed(2)
         return (
             <span className={percentage >= 0 ? 'text-green-500' : 'text-red-500'}>
@@ -53,6 +57,9 @@ export const CoinCard: React.FC<Props> = ({
         )
     }
 
+    const supplyPercent = (circulating_supply && max_supply && max_supply > 0)
+        ? (circulating_supply / max_supply) * 100
+        : 0
 
     return (
         <div
@@ -64,12 +71,16 @@ export const CoinCard: React.FC<Props> = ({
             <Card fullWidth radius='none' className="flex flex-row transition hover:shadow-lg cursor-pointer font-bold">
                 <CardHeader className=''>
                     <div className='flex flex-row w-1/4'>
-                        <p>{market_cap_rank}</p>
+                        <p>{market_cap_rank ?? '—'}</p>
                         <Divider orientation='vertical' className='mx-3' />
-                        <img src={image} alt={name} className='w-8 h-8 rounded-full my-auto mr-4' />
+                        {image ? (
+                            <img src={image} alt={name || symbol} className='w-8 h-8 rounded-full my-auto mr-4' />
+                        ) : (
+                            <div className="w-8 h-8 rounded-full bg-gray-300 my-auto mr-4" />
+                        )}
                         <div className='mr-8'>
-                            <p className='text-base'>{name}</p>
-                            <p className='text-sm text-muted-foreground opacity-65'>{symbol.toUpperCase()}</p>
+                            <p className='text-base'>{name || 'Unknown'}</p>
+                            <p className='text-sm text-muted-foreground opacity-65'>{symbol?.toUpperCase() || 'N/A'}</p>
                         </div>
                         <p className='ml-auto my-auto'>{formattedPrice(current_price)}</p>
                     </div>
@@ -80,22 +91,23 @@ export const CoinCard: React.FC<Props> = ({
                         <p className='text-green-400 w-1/6'>{formattedPrice(high_24h)}</p>
                         <p className='w-1/6 mr-8'>{formattedPrice(market_cap)}</p>
                         <p className='w-1/6'>{formattedPrice(total_volume)}</p>
-                        {
-                            circulating_supply ? (<div className="w-1/6 mr-8">
-                                {/* <p className="text-xs text-muted-foreground mb-1 w-1/6">Supply</p> */}
+
+                        {circulating_supply && max_supply && max_supply > 0 ? (
+                            <div className="w-1/6 mr-8">
                                 <div className="w-full h-2 bg-muted rounded-full">
                                     <div
                                         className="h-2 bg-blue-600 rounded-full"
                                         style={{
-                                            width: `${(circulating_supply / max_supply) * 100}%`,
+                                            width: `${supplyPercent}%`,
                                         }}
                                     />
                                 </div>
-                            </div>) : (<p>Supply</p>)
-                        }
-
-
-                        <Button
+                            </div>
+                        ) : (
+                            <p>Supply</p>
+                        )}
+                        <Button 
+                            className='ml-auto'
                             size='sm'
                             color='success'
                         >
@@ -107,3 +119,4 @@ export const CoinCard: React.FC<Props> = ({
         </div>
     )
 }
+
