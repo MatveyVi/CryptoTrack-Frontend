@@ -6,7 +6,7 @@ import { FiStar } from 'react-icons/fi';
 import { FaRegStar } from 'react-icons/fa';
 import { IoShareSocialSharp } from 'react-icons/io5';
 import { SITE_URL } from '../../constants';
-import { ErrorMessage } from '../error-message';
+import { AlertMessage } from '../alert-message';
 
 
 type Props = {
@@ -58,11 +58,18 @@ export const CoinInfo: React.FC<Props> = ({ id }) => {
   const handleCopy = async () => {
     try {
       await navigator.clipboard.writeText(`${SITE_URL}/current-coin/${id}`)
-      setAlertText('Адрес успешно скопирован')
-      setAlertColor('primary')
+      setAlertText('')
+      const timeout = setTimeout(() => {
+        setAlertText('Адрес успешно скопирован')
+        setAlertColor('primary')
+      }, 50)
+      return () => clearTimeout(timeout)
     } catch (error) {
-      setAlertText('Адрес не удалось скопировать')
-      setAlertColor('danger')
+      const timeout = setTimeout(() => {
+        setAlertText('Адрес не удалось скопировать')
+        setAlertColor('danger')
+      }, 50)  
+      return () => clearTimeout(timeout)
     }
   }
 
@@ -120,7 +127,7 @@ export const CoinInfo: React.FC<Props> = ({ id }) => {
           </div>
         </div>
       </Card>
-      <ErrorMessage color={alertColor} error={alertText}/>
+      <AlertMessage color={alertColor} error={alertText}/>
     </div>
   )
 }

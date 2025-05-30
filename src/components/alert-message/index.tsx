@@ -7,17 +7,17 @@ type Props = {
   color?: 'danger' | 'primary';
 }
 
-export const ErrorMessage: React.FC<Props> = ({
+export const AlertMessage: React.FC<Props> = ({
   error = '',
   color = 'danger',
 }) => {
   useEffect(() => {
     setAlertMessage(error)
     console.log('setted')
-    const interval = setInterval(() => {
+    const timeout = setTimeout(() => {
       setAlertMessage('')
     }, 3 * 1000)
-    return () => clearInterval(interval)
+    return () => clearInterval(timeout)
   }, [error])
 
   const [alertMessage, setAlertMessage] = useState<string>('')

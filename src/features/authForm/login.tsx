@@ -4,7 +4,7 @@ import { useLazyCurrentQuery, useLoginMutation } from '../../app/services/userAp
 import { useNavigate, useNavigation } from 'react-router-dom';
 import { hasErrorField } from '../../utils/has-error-field';
 import { Input } from '../../components/input';
-import { ErrorMessage } from '../../components/error-message';
+import { AlertMessage } from '../../components/alert-message';
 import { Button, Link } from '@heroui/react';
 import { useLazyMarketQuery } from '../../app/services/coinApi';
 
@@ -66,7 +66,7 @@ export const Login: React.FC<Props> = ({
                 type='password'
                 required='Обязательное поле' 
             />
-            <ErrorMessage error={error} />
+            <AlertMessage error={error} />
             <p className='text-center text-small'>
                 Нет аккаунта?{" "}
                 <Link

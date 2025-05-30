@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { hasErrorField } from '../../utils/has-error-field';
 import { isErrored } from 'stream';
 import { Input } from '../../components/input';
-import { ErrorMessage } from '../../components/error-message';
+import { AlertMessage } from '../../components/alert-message';
 import { Button, Link, useDisclosure } from '@heroui/react';
 import { Modal } from '../../components/modal';
 import { PiSealWarningFill } from 'react-icons/pi';
@@ -103,7 +103,7 @@ export const Register: React.FC<Props> = ({
           </Button>
         </div>
       </p>
-      <ErrorMessage error={error} />
+      <AlertMessage error={error} />
     </form>
   )
 }
