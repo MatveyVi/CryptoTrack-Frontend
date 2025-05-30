@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Spinner } from '@heroui/react'
 import { useTrendingQuery } from '../../app/services/coinApi'
-import { CoinCardTrending } from '../coin-card-trending'
 import { CoinCard } from '../coin-card'
 
 
@@ -15,7 +14,7 @@ export const CoinsListTrending = () => {
 
   useEffect(() => {
     if (isSuccess && Array.isArray(data)) {
-      setCoins(prev => [...prev, ...data])
+      setCoins(prev => page === 1 ? data : [...prev, ...data])
     }
   }, [data, isSuccess])
   coins.map(coin => console.log(coin))

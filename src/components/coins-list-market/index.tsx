@@ -14,7 +14,7 @@ export const CoinsListMarket = () => {
 
   useEffect(() => {
     if (isSuccess && Array.isArray(data)) {
-      setCoins(prev => [...prev, ...data])
+      setCoins(prev => page === 1 ? data : [...prev, ...data])
     }
   }, [data, isSuccess])
 
