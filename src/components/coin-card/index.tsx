@@ -71,7 +71,7 @@ export const CoinCard: React.FC<Props> = ({
             <Card fullWidth radius='none' className="flex flex-row transition hover:shadow-lg cursor-pointer font-bold">
                 <CardHeader className=''>
                     <div className='flex flex-row w-1/4'>
-                        <p>{market_cap_rank ?? '—'}</p>
+                        <p className='my-auto'>{market_cap_rank ?? '—'}</p>
                         <Divider orientation='vertical' className='mx-3' />
                         {image ? (
                             <img src={image} alt={name || symbol} className='w-8 h-8 rounded-full my-auto mr-4' />

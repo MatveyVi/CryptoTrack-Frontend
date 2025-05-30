@@ -1,7 +1,6 @@
 import { StrictMode } from "react"
 import { createRoot } from "react-dom/client"
 import { Provider } from "react-redux"
-import { App } from "./App"
 import { store } from "./app/store"
 import './index.css'
 import { HeroUIProvider } from "@heroui/react"
@@ -10,12 +9,12 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import { Auth } from "./pages/auth"
 import { Landing } from "./pages/landing"
 import { Layout } from "./components/layout"
-import { Home } from "./pages/home"
 import { Portfolio } from "./pages/portfolio"
 import { Market } from "./pages/market"
 import { Trending } from "./pages/trending"
 import { CurrentCoin } from "./pages/current-coin"
 import { AuthGuard } from "./features/auth-guard"
+import { Watchlist } from "./pages/watchlist"
 
 const router = createBrowserRouter([
   {
@@ -45,6 +44,10 @@ const router = createBrowserRouter([
       {
         path: 'current-coin/:id',
         element: <CurrentCoin />
+      },
+      {
+        path: 'watchlist',
+        element: <Watchlist />
       },
     ]
   }

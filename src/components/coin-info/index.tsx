@@ -1,16 +1,22 @@
-import React, { JSX } from 'react'
+import React, { JSX, useState } from 'react'
 import { useCoinByIdQuery } from '../../app/services/coinApi'
 import { useParams } from 'react-router-dom'
 import { Button, Card, Divider } from '@heroui/react';
 import { FiStar } from 'react-icons/fi';
 import { FaRegStar } from 'react-icons/fa';
 import { IoShareSocialSharp } from 'react-icons/io5';
+import { SITE_URL } from '../../constants';
+import { ErrorMessage } from '../error-message';
+
 
 type Props = {
   id: string;
 }
 
 export const CoinInfo: React.FC<Props> = ({ id }) => {
+  const [alertText, setAlertText] = useState<string>('')
+  const [alertColor, setAlertColor] = useState<'primary' | 'danger'>('primary')
+
   const { data, isLoading } = useCoinByIdQuery(id || '')
   const getImageUrl = (image: string | { [key: string]: string | undefined }): string | undefined => {
     if (!image) return undefined
@@ -49,6 +55,18 @@ export const CoinInfo: React.FC<Props> = ({ id }) => {
     return supply.toString()
   }
 
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(`${SITE_URL}/current-coin/${id}`)
+      setAlertText('Адрес успешно скопирован')
+      setAlertColor('primary')
+    } catch (error) {
+      setAlertText('Адрес не удалось скопировать')
+      setAlertColor('danger')
+    }
+  }
+
+
   return (
     <div className='mx-3'>
       <div className='flex'>
@@ -62,7 +80,7 @@ export const CoinInfo: React.FC<Props> = ({ id }) => {
           <Button size='sm'>
             <FaRegStar />
           </Button>
-          <Button size='sm'>
+          <Button onClick={handleCopy} size='sm'>
             <IoShareSocialSharp />
           </Button>
         </div>
@@ -102,6 +120,7 @@ export const CoinInfo: React.FC<Props> = ({ id }) => {
           </div>
         </div>
       </Card>
+      <ErrorMessage color={alertColor} error={alertText}/>
     </div>
   )
 }

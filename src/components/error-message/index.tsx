@@ -1,16 +1,33 @@
 import { Alert } from '@heroui/react'
-import React from 'react'
+import { color } from 'chart.js/helpers'
+import React, { useEffect, useState } from 'react'
 
-export const ErrorMessage = ({
-  error = ''
-}: {
-  error: string
+type Props = {
+  error?: string;
+  color?: 'danger' | 'primary';
+}
+
+export const ErrorMessage: React.FC<Props> = ({
+  error = '',
+  color = 'danger',
 }) => {
-  if (!error) return null
+  useEffect(() => {
+    setAlertMessage(error)
+    console.log('setted')
+    const interval = setInterval(() => {
+      setAlertMessage('')
+    }, 3 * 1000)
+    return () => clearInterval(interval)
+  }, [error])
+
+  const [alertMessage, setAlertMessage] = useState<string>('')
+  
+
+  if (!alertMessage) return null
 
   return (
     <div className='fixed bottom-4 right-4 z-50 w-[300px]'>
-      <Alert color="danger" description={<span className='font-bold'>{error}</span>}/>
+      <Alert color={color} description={<span className='font-bold'>{alertMessage}</span>}/>
     </div>
   )
 }
