@@ -75,13 +75,13 @@ export const CoinCard: React.FC<Props> = ({
                     </div>
 
                     <div className='flex flex-row items-center w-full ml-8'>
-                        <p className='w-1/6'>{formattedPercentage(price_change_percentage_24h)}</p>
-                        <p className='text-red-400 w-1/6'>{formattedPrice(low_24h)}</p>
+                        <p className='w-1/12'>{formattedPercentage(price_change_percentage_24h)}</p>
+                        <p className='text-red-400 w-1/12 mr-8'>{formattedPrice(low_24h)}</p>
                         <p className='text-green-400 w-1/6'>{formattedPrice(high_24h)}</p>
-                        <p className='w-1/6'>{formattedPrice(market_cap)}</p>
+                        <p className='w-1/6 mr-8'>{formattedPrice(market_cap)}</p>
                         <p className='w-1/6'>{formattedPrice(total_volume)}</p>
                         {
-                            circulating_supply ? (<div className="w-1/6">
+                            circulating_supply ? (<div className="w-1/6 mr-8">
                                 {/* <p className="text-xs text-muted-foreground mb-1 w-1/6">Supply</p> */}
                                 <div className="w-full h-2 bg-muted rounded-full">
                                     <div
