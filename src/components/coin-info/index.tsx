@@ -7,7 +7,7 @@ import { AlertMessage } from '../alert-message';
 import { useSelector } from 'react-redux';
 import { selectFavoriteCoins } from '../../features/user/userSlice';
 import { FaRegStar, FaStar } from 'react-icons/fa';
-import { useAddToWatchlistMutation, useDeleteFromWatchlistMutation } from '../../app/services/userApi';
+import { useWatchlist } from '../../app/services/watchlist';
 
 
 type Props = {
@@ -17,8 +17,7 @@ type Props = {
 export const CoinInfo: React.FC<Props> = ({ id }) => {
 
   const favoriteCoins = useSelector(selectFavoriteCoins)
-  const [triggerAddToWatchlist] = useAddToWatchlistMutation()
-  const [triggerDeleteFromWatchlist] = useDeleteFromWatchlistMutation()
+  const { toggleWatchlist } = useWatchlist()
 
   const [alertText, setAlertText] = useState<string>('')
   const [alertColor, setAlertColor] = useState<'primary' | 'danger'>('primary')
@@ -78,14 +77,6 @@ export const CoinInfo: React.FC<Props> = ({ id }) => {
       return () => clearTimeout(timeout)
     }
   }
-  const handleWatchlist = async () => {
-    try {
-      favoriteCoins?.includes(id) ? await triggerDeleteFromWatchlist(id).unwrap() : await triggerAddToWatchlist(id).unwrap()
-    } catch (error) {
-      console.log('Ошибка при добавлении/удалении в/из вотчлиста', error)
-    }
-  }
-
 
   return (
     <div className='mx-3'>
@@ -97,7 +88,7 @@ export const CoinInfo: React.FC<Props> = ({ id }) => {
           <Card className='px-1 mt-1'>#{data?.market_cap_rank}</Card>
         </div>
         <div className='flex ml-auto space-x-2'>
-          <Button size='sm' onClick={handleWatchlist}>
+          <Button size='sm' onClick={() => toggleWatchlist(id)}>
             {
               favoriteCoins?.includes(id) ? <FaStar /> : <FaRegStar />
             }

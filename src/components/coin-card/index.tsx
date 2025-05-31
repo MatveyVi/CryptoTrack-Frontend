@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { selectFavoriteCoins } from '../../features/user/userSlice';
 import { useAddToWatchlistMutation, useDeleteFromWatchlistMutation } from '../../app/services/userApi';
+import { useWatchlist } from '../../app/services/watchlist';
 
 type Props = {
     id: string;
@@ -39,8 +40,7 @@ export const CoinCard: React.FC<Props> = ({
 }) => {
 
     const favoriteCoins = useSelector(selectFavoriteCoins)
-    const [triggerAddToWatchlist] = useAddToWatchlistMutation()
-    const [triggerDeleteFromWatchlist] = useDeleteFromWatchlistMutation()
+    const { toggleWatchlist } = useWatchlist()
 
     const navigate = useNavigate()
 
@@ -68,13 +68,6 @@ export const CoinCard: React.FC<Props> = ({
     const supplyPercent = (circulating_supply && max_supply && max_supply > 0)
         ? (circulating_supply / max_supply) * 100
         : 0
-    const handleWatchlist = async () => {
-        try {
-            favoriteCoins?.includes(id) ? await triggerDeleteFromWatchlist(id).unwrap() : await triggerAddToWatchlist(id).unwrap()
-        } catch (error) {
-            console.log('Ошибка при добавлении/удалении в/из вотчлиста', error)
-        }
-    }
 
     return (
         <div
@@ -122,7 +115,7 @@ export const CoinCard: React.FC<Props> = ({
                             <p>Supply</p>
                         )}
                         <Button
-                            onClick={handleWatchlist}
+                            onClick={() => toggleWatchlist(id)}
                             className='ml-auto'
                             size='sm'
                             color='success'
