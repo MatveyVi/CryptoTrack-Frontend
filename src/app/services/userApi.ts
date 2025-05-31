@@ -35,7 +35,19 @@ export const userApi = api.injectEndpoints({
                 method: 'PUT',
                 body: userData
             })
-        })
+        }),
+        addToWatchlist: builder.mutation<User, string>({
+            query: (id) => ({
+                url: `/watchlist/add/${id}`,
+                method: 'PATCH'
+            })
+        }),
+        deleteFromWatchlist: builder.mutation<User, string>({
+            query: (id) => ({
+                url: `/watchlist/delete/${id}`,
+                method: 'PATCH'
+            })
+        }),
     })
 })
 
@@ -46,9 +58,11 @@ export const {
     useLazyCurrentQuery,
     useGetUserByidQuery,
     useLazyGetUserByidQuery,
-    useUpdateUserMutation
+    useUpdateUserMutation,
+    useAddToWatchlistMutation,
+    useDeleteFromWatchlistMutation,
 } = userApi;
 
 export const { 
-    endpoints: { login, register, current, getUserByid, updateUser}
+    endpoints: { login, register, current, getUserByid, updateUser, addToWatchlist, deleteFromWatchlist}
 } = userApi;

@@ -10,6 +10,7 @@ export type User = {
     //posts: Post[];
     followers: string[];
     following: string[];
+    favoriteCoins: string[];
 }
 
 export type Coin = {

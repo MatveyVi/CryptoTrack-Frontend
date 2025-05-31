@@ -1,7 +1,10 @@
 import { Button, Card, CardBody, CardHeader, Divider } from '@heroui/react'
 import React, { JSX } from 'react'
-import { FaRegStar } from 'react-icons/fa';
+import { FaRegStar, FaStar } from 'react-icons/fa';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { selectFavoriteCoins } from '../../features/user/userSlice';
+import { useAddToWatchlistMutation, useDeleteFromWatchlistMutation } from '../../app/services/userApi';
 
 type Props = {
     id: string;
@@ -34,6 +37,11 @@ export const CoinCard: React.FC<Props> = ({
     circulating_supply,
     max_supply,
 }) => {
+
+    const favoriteCoins = useSelector(selectFavoriteCoins)
+    const [triggerAddToWatchlist] = useAddToWatchlistMutation()
+    const [triggerDeleteFromWatchlist] = useDeleteFromWatchlistMutation()
+
     const navigate = useNavigate()
 
     const formattedPrice = (price?: number): string => {
@@ -60,6 +68,13 @@ export const CoinCard: React.FC<Props> = ({
     const supplyPercent = (circulating_supply && max_supply && max_supply > 0)
         ? (circulating_supply / max_supply) * 100
         : 0
+    const handleWatchlist = async () => {
+        try {
+            favoriteCoins?.includes(id) ? await triggerDeleteFromWatchlist(id).unwrap() : await triggerAddToWatchlist(id).unwrap()
+        } catch (error) {
+            console.log('Ошибка при добавлении/удалении в/из вотчлиста', error)
+        }
+    }
 
     return (
         <div
@@ -106,12 +121,15 @@ export const CoinCard: React.FC<Props> = ({
                         ) : (
                             <p>Supply</p>
                         )}
-                        <Button 
+                        <Button
+                            onClick={handleWatchlist}
                             className='ml-auto'
                             size='sm'
                             color='success'
                         >
-                            <FaRegStar />
+                            {
+                                favoriteCoins?.includes(id) ? <FaStar /> : <FaRegStar />
+                            }
                         </Button>
                     </div>
                 </CardHeader>

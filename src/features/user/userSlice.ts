@@ -16,7 +16,7 @@ const initialState: InitialState = {
     user: null,
     isAuthenticated: false,
     users: null,
-    current: null
+    current: null,
 }
 
 const slice = createSlice({
@@ -41,12 +41,20 @@ const slice = createSlice({
             .addMatcher(userApi.endpoints.getUserByid.matchFulfilled, (state, action) => {
                 state.user = action.payload 
             })
+            .addMatcher(userApi.endpoints.addToWatchlist.matchFulfilled, (state, action) => {
+                state.current = action.payload;
+            })
+            .addMatcher(userApi.endpoints.deleteFromWatchlist.matchFulfilled, (state, action) => {
+                state.current = action.payload;
+            })
     }
 })
 
 export const { logout, resetUser } = slice.actions
 
 export default slice.reducer
+
+export const selectFavoriteCoins = (state: RootState) => state.user.current?.favoriteCoins
 
 export const selectIsAuthenticated = (state: RootState) => state.user.isAuthenticated
 
